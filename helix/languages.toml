@@ -1,0 +1,75 @@
+[[language]]
+name = "rust"
+scope = "source.rust"
+injection-regex = "rust"
+file-types = ["rs"]
+roots = ["Cargo.toml", "Cargo.lock"]
+auto-format = true
+comment-token = "//"
+# language-server = { command = "rust-analyzer" }
+language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"]}
+indent = { tab-width = 4, unit = "    " } 
+diagnostic-severity = "Hint"
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+
+[[language]]
+name = "javascript"
+shebangs = ["deno", "node"]
+roots = ["deno.json", "package.json", "tsconfig.json"]
+auto-format = true
+config = { enable = true, lint = true, unstable = true }
+language-server = { command = "deno", args = ["lsp"], language-id = "javascript" }
+
+[[language]]
+name = "jsx"
+shebangs = ["deno", "node"]
+roots = ["deno.json", "package.json", "tsconfig.json"]
+auto-format = true
+config = { enable = true, lint = true, unstable = true }
+language-server = { command = "deno", args = ["lsp"], language-id = "javascriptreact" }
+
+[[language]]
+name = "typescript"
+shebangs = ["deno", "node"]
+roots = ["deno.json", "package.json", "tsconfig.json"]
+auto-format = true
+config = { enable = true, lint = true, unstable = true }
+language-server = { command = "deno", args = ["lsp"], language-id = "typescript" }
+
+[[language]]
+name = "tsx"
+shebangs = ["deno", "node"]
+roots = ["deno.json", "package.json", "tsconfig.json"]
+auto-format = true
+config = { enable = true, lint = true, unstable = true }
+language-server = { command = "deno", args = ["lsp"], language-id = "typescriptreact" }
+
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "python"
+file-types = ["py"]
+shebangs = ["python"]
+roots = []
+auto-format = true
+comment-token = "#"
+language-server = { command = "pylsp" }
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "black", args = ["-", "-q"] }
+
+[[language]]
+name = "yaml"
+scope = "source.yaml"
+injection-regex = "yaml"
+file-types = ["yaml"]
+roots = []
+comment-token = "#"
+language-server = { command = "ansible-language-server" }
+indent = { tab-width = 2, unit = "  " }
+
