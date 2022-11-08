@@ -8,8 +8,15 @@ auto-format = true
 comment-token = "//"
 # language-server = { command = "rust-analyzer" }
 language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"]}
+# formatter = { command = "cargo" , args = ["clippy", "--fix"] }
 indent = { tab-width = 4, unit = "    " } 
-diagnostic-severity = "Hint"
+diagnostic-severity = "Error"
+
+[language.config]
+checkOnSave = {command = "clippy"}
+cargo = {allFeatures = true}
+procMacro = {enable = true }
+# auto-format = false
 
 [language.auto-pairs]
 '(' = ')'
