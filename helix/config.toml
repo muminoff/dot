@@ -1,21 +1,11 @@
-# theme = "heisenberg"
-theme = "ea"
-# theme = "tokyonight"
-# theme = "flatwhite"
-# theme = "acme"
-# theme ="ayu_dark"
-# theme = "purewhite"
+theme = "helix_dark"
 
 [editor]
 mouse = true
 cursorline = true
-# cursorcolumn = true
-line-number = "relative"
-# idle-timeout = 1000
 true-color = true
 color-modes = true
 auto-info = true
-# gutters = ["diagnostics"]
 
 [editor.auto-pairs]
 '(' = ')'
@@ -30,13 +20,9 @@ display-messages = true
 
 [editor.cursor-shape]
 insert = "bar"
-# insert = "block"
 normal = "block"
 select = "underline"
 
-[editor.indent-guides]
-render = true
-# character = "|"
 
 [editor.file-picker]
 hidden = false
@@ -47,7 +33,7 @@ center = []
 right = ["diagnostics", "selections", "position", "file-type"]
 
 [keys.normal]
-"," = { "r" = ":sh cargo run", "t" = ":sh cargo test", "c" = ":sh cargo clippy --fix", "o" = [
+";" = { "r" = ":sh cargo run", "t" = ":sh cargo test", "c" = ":sh cargo clippy --fix", "o" = [
   "add_newline_below",
   "add_newline_below",
   "move_line_down",
