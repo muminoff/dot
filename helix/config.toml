@@ -1,11 +1,14 @@
-theme = "helix_dark"
+theme = "ea"
 
 [editor]
 mouse = true
 cursorline = true
+bufferline = "always"
+cursorcolumn = true
 true-color = true
 color-modes = true
 auto-info = true
+idle-timeout = 0
 
 [editor.auto-pairs]
 '(' = ')'
@@ -17,23 +20,58 @@ auto-info = true
 
 [editor.lsp]
 display-messages = true
+# display-inlay-hints = true
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
+# [editor.soft-wrap]
+# enable = true
+# wrap-indicator = "󱞩"
+
+# [editor.indent-guides]
+# render = true
+# character = ""
+# skip-levels = 1
 
 [editor.file-picker]
 hidden = false
+git-ignore = true
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name"]
-center = []
-right = ["diagnostics", "selections", "position", "file-type"]
+left = [
+  "mode",
+  "spacer",
+  "version-control",
+  "spacer",
+  "separator",
+  "file-name",
+  "file-modification-indicator",
+]
+right = [
+  "spinner",
+  "spacer",
+  "workspace-diagnostics",
+  "separator",
+  "spacer",
+  "diagnostics",
+  "position",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+]
+separator = "╎"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [keys.normal]
-";" = { "r" = ":sh cargo run", "t" = ":sh cargo test", "c" = ":sh cargo clippy --fix", "o" = [
+"A-k" = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
+"A-j" = [ "extend_to_line_bounds", "delete_selection", "paste_after" ]
+esc = ["collapse_selection", "keep_primary_selection"]
+";" = { "r" = ":sh cargo run", "b" = ":sh cargo build", "t" = ":sh cargo test", "c" = ":sh cargo clippy --fix --allow-dirty", "o" = [
   "add_newline_below",
   "add_newline_below",
   "move_line_down",
@@ -47,4 +85,40 @@ right = ["diagnostics", "selections", "position", "file-type"]
   "move_line_up",
   "move_line_up",
   "insert_mode",
-]}
+], "R" = [
+  ":write!",
+  ":sh cargo run",
+] }
+
+[keys.normal.space]
+# Add comma to the end of the line
+"," = [
+  "save_selection",
+  "goto_line_end",
+  ":append-output echo",
+  "collapse_selection",
+  "delete_selection",
+  "jump_backward",
+]
+# Add semicolumn to the end of the line
+";" = [
+  "save_selection",
+  "goto_line_end",
+  ":append-output echo ';'",
+  "collapse_selection",
+  "delete_selection",
+  "jump_backward",
+]
+"?" = [
+  ":toggle lsp.display-inlay-hints",
+]
+"=" = ":format"
+R = [":w!", ":config-reload"]
+O = ":config-open"
+L = ":o ~/.config/helix/languages.toml"
+
+[keys.insert]
+esc = ["collapse_selection", "normal_mode"]
+
+[keys.select]
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
