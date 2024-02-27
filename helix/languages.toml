@@ -1,82 +1,61 @@
 [[language]]
 name = "rust"
-scope = "source.rust"
-injection-regex = "rust"
-file-types = ["rs"]
-roots = ["Cargo.toml", "Cargo.lock"]
-auto-format = true
-comment-token = "//"
-# language-server = { command = "rust-analyzer" }
-language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"]}
-# formatter = { command = "cargo" , args = ["clippy", "--fix"] }
-indent = { tab-width = 4, unit = "    " } 
-diagnostic-severity = "Error"
 
-[language.config]
-checkOnSave = {command = "clippy"}
-cargo = {allFeatures = true}
-procMacro = {enable = true }
-# auto-format = false
+[language.debugger]
+command = "codelldb"
+name = "codelldb"
+port-arg = "--port {}"
+transport = "tcp"
 
-[language.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'"' = '"'
-'`' = '`'
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+
+[[language.debugger.templates.completion]]
+completion = "filename"
+name = "binary"
+
+[language.debugger.templates.args]
+program = "{0}"
+runInterminal = false
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
 
 [[language]]
-name = "javascript"
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-auto-format = true
-config = { enable = true, lint = true, unstable = true }
-language-server = { command = "deno", args = ["lsp"], language-id = "javascript" }
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
 
-[[language]]
-name = "jsx"
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-auto-format = true
-config = { enable = true, lint = true, unstable = true }
-language-server = { command = "deno", args = ["lsp"], language-id = "javascriptreact" }
 
+
+# DENO
 [[language]]
 name = "typescript"
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
+shebangs = ["deno"]
+roots = ["deno.json", "deno.jsonc"]
+file-types = ["js", "ts", "jsx", "tsx"]
+language-servers = ["deno-lsp"]
 auto-format = true
-config = { enable = true, lint = true, unstable = true }
-language-server = { command = "deno", args = ["lsp"], language-id = "typescript" }
 
-[[language]]
-name = "tsx"
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-auto-format = true
-config = { enable = true, lint = true, unstable = true }
-language-server = { command = "deno", args = ["lsp"], language-id = "typescriptreact" }
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+environment = { NO_COLOR = "1" }
 
-[[language]]
-name = "python"
-scope = "source.python"
-injection-regex = "python"
-file-types = ["py"]
-shebangs = ["python"]
-roots = []
-auto-format = true
-comment-token = "#"
-language-server = { command = "pylsp" }
-indent = { tab-width = 4, unit = "    " }
-formatter = { command = "black", args = ["-", "-q"] }
-
-[[language]]
-name = "yaml"
-scope = "source.yaml"
-injection-regex = "yaml"
-file-types = ["yaml"]
-roots = []
-comment-token = "#"
-language-server = { command = "ansible-language-server" }
-indent = { tab-width = 2, unit = "  " }
-
+[language-server.deno-lsp.config.deno]
+enable = true
+# Uncomment to enable completion of unstable features of Deno
+# unstable = true
+# Uncomment to cache dependencies on save
+# cacheOnSave = true
+# Enable completion of importing from registries
+# Enable completion of function calls
+suggest = { completeFunctionCalls = false, imports = { hosts = { "https://deno.land" = true } } }
+# suggest = { imports = { hosts = { "https://deno.land" = true, "https://crux.land" = true, "https://x.nest.land" = true } } }
+# Uncomment to enable inlay hints
+# inlayHints.parameterNames.enabled = "all"
+# inlayHints.parameterTypes.enabled = true
+# inlayHints.variableTypes.enabled = true
+# inlayHints.propertyDeclarationTypes.enabled  = true
+# inlayHints.functionLikeReturnTypes.enabled = true
+# inlayHints.enumMemberValues.enabled = true
